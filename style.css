@@ -1,0 +1,85 @@
+body {
+  background-color: black;
+}
+
+.logo {
+  border: solid red;
+  width: 60vw;
+  height: 5vh;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: red;
+  font-family: century;
+}
+
+.mainScreen {
+  background-image: url("./img/planet.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  border: solid lightblue;
+  width: 75vw;
+  height: 60vh;
+  margin-top: 2em;
+  margin-left: 20em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftDiv {
+  border: solid red;
+}
+.leftBox {
+  border: solid lightcoral;
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.leftImg {
+  border: solid darkgoldenrod;
+  transform: rotate(0.25turn);
+  width: 50%;
+}
+
+.rightDiv {
+  border: solid blue;
+  display: flex;
+  justify-content: end;
+}
+.rightBox {
+  border: solid lightgreen;
+  width: 50%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  /* flex-flow: row-reverse wrap; */
+}
+.rightImg {
+  border: solid darkmagenta;
+  transform: rotate(-0.25turn);
+  width: 50%;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.attack {
+  background-color: red;
+  border: none;
+  font-size: 32px;
+}
+
+.statusScreen{
+
+}
+
+.enemyinfo{}
+
+.playerinfo{}
