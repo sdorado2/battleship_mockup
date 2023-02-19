@@ -1,105 +1,163 @@
-class battleship {
-  hull = 0;
-  firepower = 0;
-  accuracy = 0;
-  constructor(hull, firepower, accuracy) {
-    this.hull = hull;
-    this.firepower = firepower;
-    this.accuracy = accuracy;
-  }
-}
+const alienShip = () => {
+  let leftDrawn = document.querySelector(".leftBox");
 
-const createPlayerShip = () => {
-  return new battleship(20, 5, 0.7);
+  let alienLeft = document.createElement("div");
+  alienLeft.setAttribute("class", "leftDiv");
+
+  let alienImg = document.createElement("img");
+  alienImg.setAttribute("src", "./img/red.png");
+  alienImg.setAttribute("class", "leftImg");
+  alienLeft.append(alienImg);
+
+  leftDrawn.append(alienLeft);
 };
 
-const createEnemyShip = () => {
-  let enemies = [];
-  for (let index = 0; index < 6; index++) {
-    enemies[index] = new battleship(
-      Math.floor(Math.random() * 4 + 3),
-      5,
-      Math.random()
-    );
-  }
-  return enemies;
+const playerShip = () => {
+  let rightDrawn = document.querySelector(".rightBox");
+
+  let playerRight = document.createElement("div");
+  playerRight.setAttribute("class", "rightDiv");
+
+  let playerImg = document.createElement("img");
+  playerImg.setAttribute("class", "rightImg");
+  playerImg.setAttribute("src", "./img/white.png");
+  playerRight.append(playerImg);
+
+  rightDrawn.append(playerRight);
 };
 
-const attack = (objAtk, objDef) => {
-  if (objAtk.accuracy > 0.5) {
-    objDef.hull = objDef.hull - objAtk.firepower;
-    console.log(`Opponent has taken : ${objAtk.firepower} `);
-    counterAtk(objAtk, objDef);
-    return objDef.hull;
-  } else {
-    counterAtk(objAtk, objDef);
-  }
-};
+let btn = document.querySelector(".attack");
 
-const counterAtk = (objAtk, objDef) => {
-  if (objDef.accuracy > 0.5) {
-    objAtk.hull = objAtk.hull - objDef.firepower;
-    console.log(`You have received : ${objDef.firepower}`);
-    return objAtk.hull;
-  } else if (objDef.accuracy < 0.5) {
-    console.log("Counter attack was missed!");
-  }
-};
+btn.addEventListener("click", (target) => {
+  alienShip();
+  playerShip();
+});
 
-const nextEnemy = (object) => {
-  let defeated = object.shift();
-  console.log("defeated : ", defeated);
-  // return object.shift();
-};
+// class battleship {
+//   hull = 0;
+//   firepower = 0;
+//   accuracy = 0;
+//   constructor(hull, firepower, accuracy) {
+//     this.hull = hull;
+//     this.firepower = firepower;
+//     this.accuracy = accuracy;
+//   }
+// }
 
-const checkEnemiesList = (object) => {
-  if (object == null || object == undefined) {
-    console.log("You Have Destroy All Aliens. \nCongrats!");
-    return;
-  }
-};
+// const createPlayerShip = () => {
+//   return new battleship(20, 5, 0.7);
+// };
 
-const runAway = (obj) => {
-  console.log(
-    `You have manage to escape with hull : ${obj.hull} and firepower: ${obj.firepower}!\nGame Over!`
-  );
-};
+// const createEnemyShip = () => {
+//   let enemies = [];
+//   for (let index = 0; index < 6; index++) {
+//     enemies[index] = new battleship(
+//       Math.floor(Math.random() * 4 + 3),
+//       5,
+//       Math.random()
+//     );
+//   }
+//   return enemies;
+// };
 
-let newGame = prompt("New Game :");
+// const attack = (objAtk, objDef) => {
+//   if (objAtk.accuracy > 0.5) {
+//     objDef.hull = objDef.hull - objAtk.firepower;
+//     console.log(`Opponent has taken : ${objAtk.firepower} `);
+//     counterAtk(objAtk, objDef);
+//     return objDef.hull;
+//   } else {
+//     counterAtk(objAtk, objDef);
+//   }
+// };
 
-if (newGame == "y") {
-  let endGame = false;
-  let player = createPlayerShip();
-  let enemy = createEnemyShip();
-  let counter = 0;
+// const counterAtk = (objAtk, objDef) => {
+//   if (objDef.accuracy > 0.5) {
+//     objAtk.hull = objAtk.hull - objDef.firepower;
+//     console.log(`You have received : ${objDef.firepower}`);
+//     return objAtk.hull;
+//   } else if (objDef.accuracy < 0.5) {
+//     console.log("Counter attack missed!");
+//   }
+// };
 
-  console.log(player);
-  console.log(enemy);
+// const nextEnemy = (object) => {
+//   let defeated = object.shift();
+//   console.log("defeated : ", defeated);
+//   // return object.shift();
+// };
 
-  while (endGame !== true) {
-    let ans = prompt("Attack? : ");
+// const checkEnemiesList = (object, done) => {
+//   if (object == null || object == undefined) {
+//     console.log("You Have Destroy All Aliens. \nCongrats!");
+//     doneGame(done);
+//     console.log('func check : ',done);
+//   }
+// };
 
-    if (ans == "y") {
-      if (player.hull <= 0) {
-        console.log("You lose!");
-        endGame = true;
-      }
-      if (enemy[counter].hull <= 0) {
-        nextEnemy(enemy);
-      }
-      if (enemy[counter].hull >= 1) {
-        attack(player, enemy[counter]);
-        console.log("USS : ", player, "\nAlien : ", enemy[counter]);
-      }
-    }
-    if (ans == "n") {
-      runAway(player);
-      endGame = true;
-    }
-  }
-} else if (newGame == "n") {
-  console.log("Thank You For Playing!");
-}
+// const questionDraw = (object, currentState) => {
+//   if (object <= 0) {
+//     console.log("Love All!");
+//     doneGame(currentState);
+//     console.log('func quest : ', done);
+//   }
+// };
+
+// const exclaimLost = (done) => {
+//   console.log("You lose!");
+//   doneGame(done);
+//   console.log('func lost : ',done);
+// };
+
+// const runAway = (obj) => {
+//   console.log(
+//     `You have manage to escape with hull : ${obj.hull} and firepower: ${obj.firepower}!\nGame Over!`
+//   );
+// };
+
+// const doneGame =(currentState)=>{
+//   return currentState = true;
+// }
+
+// let newGame = prompt("New Game :");
+
+// if (newGame == "y") {
+//   let endGame = false;
+//   let player = createPlayerShip();
+//   let enemy = createEnemyShip();
+//   let counter = 0;
+
+//   console.log(player);
+//   console.log(enemy);
+
+//   while (endGame !== true) {
+//     let answer = prompt("Attack? : ");
+
+//     if (answer == "y") {
+//       if (player.hull <= 0) {
+//         console.log('Call ? : ',questionDraw(enemy[counter], endGame));
+//         console.log('Call ! : ',exclaimLost(endGame));
+//         console.log('Lost? : ',endGame);
+//       }
+//       if (enemy[counter].hull <= 0) {
+//         console.log('Call check : ',checkEnemiesList(enemy, endGame));
+//         console.log('Call next : ',nextEnemy(enemy));
+//         console.log('Check? : ',endGame);
+//       }
+//       //An issue occurs when it reaches the end of the enemy list.
+//       if (enemy[counter].hull >= 1) {
+//         attack(player, enemy[counter]);
+//         console.log("USS : ", player, "\nAlien : ", enemy[counter]);
+//       }
+//     }
+//     if (answer == "n") {
+//       runAway(player);
+//       endGame = true;
+//     }
+//   }
+// } else if (newGame == "n") {
+//   console.log("Thank You For Playing!");
+// }
 // if (ans == "y") {
 //   if (player.hull >= 1 && enemy[counter].hull >= 1) {
 //     attack(player, enemy[counter]);
