@@ -31,27 +31,27 @@ body {
 }
 
 .leftDiv {
-  border: solid red;
+  /* border: solid red; */
 }
 .leftBox {
-  border: solid lightcoral;
+  /* border: solid lightcoral; */
   width: 50%;
   display: flex;
   align-items: center;
 }
 .leftImg {
-  border: solid darkgoldenrod;
+  /* border: solid darkgoldenrod; */
   transform: rotate(0.25turn);
   width: 50%;
 }
 
 .rightDiv {
-  border: solid blue;
+  /* border: solid blue; */
   display: flex;
   justify-content: end;
 }
 .rightBox {
-  border: solid lightgreen;
+  /* border: solid lightgreen; */
   width: 50%;
   display: flex;
   justify-content: end;
@@ -59,7 +59,7 @@ body {
   /* flex-flow: row-reverse wrap; */
 }
 .rightImg {
-  border: solid darkmagenta;
+  /* border: solid darkmagenta; */
   transform: rotate(-0.25turn);
   width: 50%;
 }
@@ -70,16 +70,27 @@ body {
   margin-top: 2em;
 }
 
-.attack {
+.startGame {
   background-color: red;
   border: none;
   font-size: 32px;
 }
 
 .statusScreen{
-
+    border: solid white;
+    width: 50vw;
+    height: 15vh;
+    margin-top :2em ;
+    margin-left: 39em; 
+    display: flex;
 }
 
-.enemyinfo{}
+.enemyInfo{
+    border : solid red;
+    width: 50%;
+}
 
-.playerinfo{}
+.playerInfo{
+    border : solid #0f52ba;
+    width : 50%;
+}
