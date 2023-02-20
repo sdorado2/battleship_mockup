@@ -12,7 +12,6 @@ class battleship {
 const createPlayerShip = () => {
   return new battleship(20, 5, 0.7);
 };
-
 const createEnemyShip = () => {
   let enemies = [];
   for (let index = 0; index < 6; index++) {
@@ -42,7 +41,7 @@ const counterAtk = (objAtk, objDef) => {
     console.log(`You have received : ${objDef.firepower} dmg.\n`);
     return objAtk.hull;
   } else if (objDef.accuracy < 0.5) {
-    console.log("Counter attack missed!");
+    console.log("Counter attack missed!\n");
   }
 };
 
@@ -52,22 +51,25 @@ const checkPlayerHealth = (objPlayer, gameStatus) => {
     console.log("inside player check : ", playerLost(gameStatus));
     return playerLost(gameStatus);
   }
+  return (gameStatus = false);
 };
 
 const checkEnemiesList = (objEnemyList, gameStatus) => {
-  console.log("before check enemy func : ", gameStatus);
+  console.log("Check EnemyList BEFORE function : ", gameStatus, ".\n");
 
   if (objEnemyList.length == 0) {
-    console.log("You Have Destroy All Aliens. \nCongrats!");
-    console.log("Boolean Value : ", changeEndVariable(gameStatus));
-    return changeEndVariable(gameStatus);
+    console.log("You Have Destroy All Aliens.\nCongrats!");
+    console.log("Boolean Value : ", changeEndGameValue(gameStatus));
+    return changeEndGameValue(gameStatus);
   }
+  return (gameStatus = false);
 };
 
 const checkEnemyDefeated = (objEnemy, gameStatus) => {
   if (objEnemy[0].hull <= 0) {
     return checkEnemiesList(objEnemy, gameStatus);
   }
+  return (gameStatus = false);
 };
 
 const enemyAlive = (objPlayer, objEnemy) => {
@@ -87,30 +89,25 @@ const nextEnemy = (objEnemy) => {
 const questionDraw = (objEnemy, gameStatus) => {
   if (objEnemy[0].hull <= 0) {
     console.log("Love All!");
-    return changeEndVariable(gameStatus);
+    return changeEndGameValue(gameStatus);
   }
-  console.log("After question function : ", gameStatus);
 };
 
 const playerLost = (gameStatus) => {
   console.log("You lose!");
-  changeEndVariable(gameStatus);
-  console.log("Game Lost function : ", changeEndVariable(gameStatus));
-  return changeEndVariable(gameStatus);
+  console.log("Game Lost function : ", changeEndGameValue(gameStatus));
+  return changeEndGameValue(gameStatus);
 };
 
-const changeEndVariable = (gameState) => {
+const changeEndGameValue = (gameState) => {
   gameState = true;
-  console.log("Change value function : ", gameState);
   return gameState;
 };
 
-const runAway = (obj) => {
+const runAway = (obj) =>
   console.log(
-    `You have manage to escape! \nhull : ${obj.hull} \nfirepower: ${obj.firepower}!\nGame Over!`
+    `You have manage to escape!\nhull : ${obj.hull}\nfirepower: ${obj.firepower}!\nGame Over!`
   );
-};
-
 const alienShip = () => {
   let leftDrawn = document.querySelector(".leftBox");
 
@@ -160,42 +157,47 @@ btn.addEventListener("click", (target) => {
   playerShip();
 
   let newGame = prompt("New Game :");
+  let endGame;
+  let player;
+  let enemy;
 
   if (newGame == "y") {
-    let endGame = false;
-    let player = createPlayerShip();
-    let enemy = createEnemyShip();
-    // let counter = 0;
+    endGame = false;
+    player = createPlayerShip();
+    enemy = createEnemyShip();
 
     console.table(player);
     console.table(enemy);
-
-    while (endGame !== true) {
-      let answer = prompt("Attack? : ");
-
-      if (answer == "y") {
-        checkEnemiesList(enemy, endGame);
-
-        //An issue occurs when it reaches the end of the enemy list.
-        enemyAlive(player, enemy);
-
-        checkPlayerHealth(player, endGame);
-        console.log("Check endgame AFTER player check : ", endGame);
-
-        checkEnemyDefeated(enemy, endGame);
-        console.log("\nCheck endgame AFTER enemy check : ", endGame, ".\n");
-
-        nextEnemy(enemy);
-      }
-
-      if (answer == "n") {
-        runAway(player);
-        endGame = true;
-      }
-    }
-  } else if (newGame == "n") {
-    console.log("Thank You For Playing!");
+    console.log("BEFORE while loop : ", endGame);
   }
+  if (newGame == "n") {
+    console.log("Thank You For Playing!");
+    return;
+  }
+  do {
+    console.log("AFTER endGame while loop : ", endGame);
+    console.log("AFTER enemy while loop : ", enemy.length);
+    let answer = prompt("\nAttack? : ");
+
+    if (answer == "y") {
+      firstCheck = checkEnemiesList(enemy, endGame);
+      if (endGame != firstCheck) break;
+
+      enemyAlive(player, enemy);
+
+      secondCheck = checkPlayerHealth(player, endGame);
+      if (endGame != secondCheck) break;
+
+      thirdCheck = checkEnemyDefeated(enemy, endGame);
+      if (endGame != thirdCheck) break;
+
+      nextEnemy(enemy);
+    }
+    if (answer == "n") {
+      runAway(player);
+      endGame = true;
+    }
+  } while (endGame !== true);
 });
 
 //     while (endGame !== true) {
