@@ -32,6 +32,15 @@ body {
   display: flex;
   justify-content: space-between;
 }
+.message{
+  /* border : solid yellow; */
+  width: 20vw;
+  height: 5vh;
+  margin : auto;
+  color : white;
+  font-size: 32px;
+  text-align: center;
+}
 
 .leftDiv {
   /* border: solid red; */

@@ -77,14 +77,14 @@ const checkEnemyDefeated = (objEnemy, gameStatus) => {
 const enemyAlive = (objPlayer, objEnemy) => {
   if (objEnemy[0].hull >= 1) {
     attack(objPlayer, objEnemy[0]);
-    console.log("USS : ", objPlayer, "\nAlien : ", objEnemy[0], "\n");
+    return `USS : ", ${objPlayer} \nAlien :  ${objEnemy[0]} \n`;
   }
 };
 
 const nextEnemy = (objEnemy) => {
   if (objEnemy[0].hull <= 0) {
     let defeated = objEnemy.shift();
-    console.log("DEFEATED : ", defeated, "\n");
+    return `ENEMY DEFEATED : ${defeated}, \n`;
   }
 };
 
@@ -106,10 +106,9 @@ const changeEndGameValue = (gameState) => {
   return gameState;
 };
 
-const runAway = (obj) =>
-  console.log(
-    `You have manage to escape!\nhull : ${obj.hull}\nfirepower: ${obj.firepower}!\nGame Over!`
-  );
+const runAway = (obj) => {
+  return `You have manage to escape!\nhull : ${obj.hull}\nfirepower: ${obj.firepower}!\nGame Over!`;
+};
 
 // HTML DOM
 const alienShip = () => {
@@ -155,16 +154,8 @@ const playerShip = () => {
 };
 
 const replaceButton = () => {
-  // let startBtn = document.querySelector(".btn");
-
   let removeBtn = document.querySelector(".startGame");
   removeBtn.remove();
-
-  // let createBtn = document.createElement('BUTTON');
-  //   createBtn.setAttribute("class", "retreatHdn");
-  //   createBtn.innerHTML = "ATTACK!";
-
-  //   startBtn.append(createBtn);
 };
 
 const updateBtn = () => {
@@ -195,14 +186,26 @@ startButton.addEventListener(
   { once: true }
 );
 
-// let battleButton = document.querySelector('.attackBtnHdn');
-// let retreatButton = document.querySelector('.retreatBtnHdn');
+let battleButton = document.querySelector(".attackBtnHdn");
+let retreatButton = document.querySelector(".retreatBtnHdn");
 
-// battleButton.addEventListener('click', responseYes)
+battleButton.addEventListener("click", (battlePhase) => {
+  let story = document.querySelector(".message");
 
-// retreatButton.addEventListener('click', (retreatOption)=>{return
-//   answer = "n"
-// })
+  checkEnemiesList(enemy, endGame);
+
+  story.innerHTML = enemyAlive(player, enemy);
+
+  checkPlayerHealth(player, endGame);
+  checkEnemyDefeated(enemy, endGame);
+
+  story.innerHTML = nextEnemy(enemy);
+});
+
+retreatButton.addEventListener("click", (retreatOption) => {
+  let newDiv = document.querySelector(".message");
+  newDiv.innerHTML = runAway(player);
+});
 
 // function responseYes() {
 //   return answer = 'y';
