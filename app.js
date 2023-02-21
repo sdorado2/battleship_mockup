@@ -1,3 +1,7 @@
+//Template for battleship
+//Cronstruction of battleship
+//Attacks Functions
+//Status Check for battleship
 class battleship {
   hull = 0;
   firepower = 0;
@@ -18,7 +22,7 @@ const createEnemyShip = () => {
     enemies[index] = new battleship(
       Math.floor(Math.random() * 4 + 3),
       5,
-      Math.random()
+      Math.floor(Math.random() * (100 - 10) + 10) / 100
     );
   }
   return enemies;
@@ -55,11 +59,9 @@ const checkPlayerHealth = (objPlayer, gameStatus) => {
 };
 
 const checkEnemiesList = (objEnemyList, gameStatus) => {
-  console.log("Check EnemyList BEFORE function : ", gameStatus, ".\n");
-
   if (objEnemyList.length == 0) {
     console.log("You Have Destroy All Aliens.\nCongrats!");
-    console.log("Boolean Value : ", changeEndGameValue(gameStatus));
+    // console.log("Boolean Value : ", changeEndGameValue(gameStatus));
     return changeEndGameValue(gameStatus);
   }
   return (gameStatus = false);
@@ -108,6 +110,8 @@ const runAway = (obj) =>
   console.log(
     `You have manage to escape!\nhull : ${obj.hull}\nfirepower: ${obj.firepower}!\nGame Over!`
   );
+
+// HTML DOM
 const alienShip = () => {
   let leftDrawn = document.querySelector(".leftBox");
 
@@ -125,7 +129,7 @@ const alienShip = () => {
 
   let alienInfo = document.createElement("div");
   alienInfo.setAttribute("class", "enemyInfo");
-  // alienInfo.innerHTML = enemy[current]; *Tobe added later.
+  alienInfo.innerHTML = `Hull :  ${enemy[0].hull} <hr><br>Firepower : ${enemy[0].firepower}<hr><br>Accuracy : ${enemy[0].accuracy}`;
   alienStatus.append(alienInfo);
 };
 
@@ -146,60 +150,107 @@ const playerShip = () => {
 
   let playerInfo = document.createElement("div");
   playerInfo.setAttribute("class", "playerInfo");
-  // playerInfo.innerHTML = player; *Tobe added later.
+  playerInfo.innerHTML = `Hull :  ${player.hull} <hr><br>Firepower : ${player.firepower}<hr><br>Accuracy : ${player.accuracy}`;
   playerStatus.append(playerInfo);
 };
 
-let btn = document.querySelector(".startGame");
+const replaceButton = () => {
+  // let startBtn = document.querySelector(".btn");
 
-btn.addEventListener("click", (target) => {
-  alienShip();
-  playerShip();
+  let removeBtn = document.querySelector(".startGame");
+  removeBtn.remove();
 
-  let newGame = prompt("New Game :");
-  let endGame;
-  let player;
-  let enemy;
+  // let createBtn = document.createElement('BUTTON');
+  //   createBtn.setAttribute("class", "retreatHdn");
+  //   createBtn.innerHTML = "ATTACK!";
 
-  if (newGame == "y") {
-    endGame = false;
-    player = createPlayerShip();
-    enemy = createEnemyShip();
+  //   startBtn.append(createBtn);
+};
 
-    console.table(player);
-    console.table(enemy);
-    console.log("BEFORE while loop : ", endGame);
-  }
-  if (newGame == "n") {
-    console.log("Thank You For Playing!");
-    return;
-  }
-  do {
-    console.log("AFTER endGame while loop : ", endGame);
-    console.log("AFTER enemy while loop : ", enemy.length);
-    let answer = prompt("\nAttack? : ");
+const updateBtn = () => {
+  let attackButtonShow = document.querySelector(".attackBtnHdn");
+  attackButtonShow.classList.toggle("attackBtnShw");
 
-    if (answer == "y") {
-      firstCheck = checkEnemiesList(enemy, endGame);
-      if (endGame != firstCheck) break;
+  let retreatButtonShow = document.querySelector(".retreatBtnHdn");
+  retreatButtonShow.classList.toggle("retreatBtnShw");
+};
 
-      enemyAlive(player, enemy);
+let startButton = document.querySelector(".startGame");
 
-      secondCheck = checkPlayerHealth(player, endGame);
-      if (endGame != secondCheck) break;
+let endGame = false;
+let player = createPlayerShip();
+let enemy = createEnemyShip();
+let answer;
+console.table(player);
+console.table(enemy);
 
-      thirdCheck = checkEnemyDefeated(enemy, endGame);
-      if (endGame != thirdCheck) break;
+startButton.addEventListener(
+  "click",
+  (initGame) => {
+    alienShip();
+    playerShip();
+    replaceButton();
+    updateBtn();
+  },
+  { once: true }
+);
 
-      nextEnemy(enemy);
-    }
-    if (answer == "n") {
-      runAway(player);
-      endGame = true;
-    }
-  } while (endGame !== true);
-});
+// let battleButton = document.querySelector('.attackBtnHdn');
+// let retreatButton = document.querySelector('.retreatBtnHdn');
 
+// battleButton.addEventListener('click', responseYes)
+
+// retreatButton.addEventListener('click', (retreatOption)=>{return
+//   answer = "n"
+// })
+
+// function responseYes() {
+//   return answer = 'y';
+// }
+
+// Game Run
+
+// let newGame = prompt("New Game :");
+
+// if (newGame == "y") {
+//   endGame;
+// player = createPlayerShip();
+// enemy = createEnemyShip();
+
+// console.table(player);
+// console.table(enemy);
+// console.log("BEFORE while loop : ", endGame);
+// }
+// if (newGame == "n") {
+//   console.log("Thank You For Playing!");
+// }
+// do {
+//   console.log("AFTER endGame while loop : ", endGame);
+//   console.log("AFTER enemy while loop : ", enemy.length);
+//   // let answer = prompt("\nAttack? : ");
+
+//   if (answer === "y") {
+//     console.log ('It when inside the if statement.')
+//     firstCheck = checkEnemiesList(enemy, endGame);
+//     if (endGame != firstCheck) break;
+
+//     enemyAlive(player, enemy);
+
+//     secondCheck = checkPlayerHealth(player, endGame);
+//     if (endGame != secondCheck) break;
+
+//     thirdCheck = checkEnemyDefeated(enemy, endGame);
+//     if (endGame != thirdCheck) break;
+
+//     nextEnemy(enemy);
+//   }
+
+//   if (answer === "n") {
+//     runAway(player);
+//     endGame = true;
+//   }
+// } while (endGame !== true);
+//=========================================================================
 //     while (endGame !== true) {
 //       let answer = prompt("Attack? : ");
 
@@ -229,7 +280,7 @@ btn.addEventListener("click", (target) => {
 //     console.log("Thank You For Playing!");
 //   }
 // });
-
+//=======================================================================
 // if (ans == "y") {
 //   if (player.hull >= 1 && enemy[counter].hull >= 1) {
 //     attack(player, enemy[counter]);
@@ -258,7 +309,7 @@ btn.addEventListener("click", (target) => {
 //   runAway(player);
 //   endGame = true;
 // }}
-
+//========================================================================
 //   while (player.hull !== 0 && endGame !== true) {
 //     let ans = prompt("attack?");
 

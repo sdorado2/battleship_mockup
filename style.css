@@ -1,5 +1,8 @@
 body {
   background-color: black;
+  background-image: url(./img/space.gif);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .logo {
@@ -67,30 +70,57 @@ body {
 .btn {
   display: flex;
   justify-content: center;
+  align-items: row;
   margin-top: 2em;
 }
 
 .startGame {
-  background-color: red;
-  border: none;
+  background-color: black;
+  border: solid;
   font-size: 32px;
+  color: white;
 }
 
-.statusScreen{
-    border: solid white;
-    width: 50vw;
-    height: 15vh;
-    margin-top :2em ;
-    margin-left: 39em; 
-    display: flex;
+.attackBtnHdn {
+  display: none;
+}
+.attackBtnShw{
+  background-color: black;
+  border: double white;
+  font-size: 32px;
+  color: white;
+  display: block;
+}
+.retreatBtnHdn {
+  display: none;
+}
+.retreatBtnShw{
+  background-color: black;
+  border: double white;
+  font-size: 32px;
+  color: white;
+  display: block;
 }
 
-.enemyInfo{
-    border : solid red;
-    width: 50%;
+.statusScreen {
+  border: solid white;
+  width: 50vw;
+  height: 15vh;
+  margin-top: 2em;
+  margin-left: 39em;
+  display: flex;
 }
 
-.playerInfo{
-    border : solid #0f52ba;
-    width : 50%;
+.enemyInfo {
+  border: solid red;
+  width: 50%;
+  font-size: 20px;
+  color: white;
+}
+
+.playerInfo {
+  border: solid #0f52ba;
+  width: 50%;
+  font-size: 20px;
+  color: white;
 }
