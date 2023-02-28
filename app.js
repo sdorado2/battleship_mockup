@@ -1,5 +1,5 @@
 //Template for battleship
-//Cronstruction of battleship
+//Construction of battleship
 //Attacks Functions
 //Status Check for battleship
 class battleship {
@@ -32,6 +32,10 @@ const attack = (objAtk, objDef) => {
   if (objAtk.accuracy > 0.5) {
     objDef.hull = objDef.hull - objAtk.firepower;
     console.log(`Opponent has taken : ${objAtk.firepower} dmg`);
+
+    let attack = document.querySelector('.message')
+    attack.innerHTML = `Opponent has taken : ${objAtk.firepower} dmg`
+
     counterAtk(objAtk, objDef);
     return objDef.hull;
   } else {
@@ -43,6 +47,10 @@ const counterAtk = (objAtk, objDef) => {
   if (objDef.accuracy > 0.5) {
     objAtk.hull = objAtk.hull - objDef.firepower;
     console.log(`You have received : ${objDef.firepower} dmg.\n`);
+
+    let counterAttack = document.querySelector('.message');
+    counterAttack.innerHTML = `You have received : ${objDef.firepower} dmg.\n`
+
     return objAtk.hull;
   } else if (objDef.accuracy < 0.5) {
     console.log("Counter attack missed!\n");
@@ -84,6 +92,7 @@ const enemyAlive = (objPlayer, objEnemy) => {
 const nextEnemy = (objEnemy) => {
   if (objEnemy[0].hull <= 0) {
     let defeated = objEnemy.shift();
+    console.log (`ENEMY DEFEATED : ${defeated}, \n`);
     return `ENEMY DEFEATED : ${defeated}, \n`;
   }
 };
