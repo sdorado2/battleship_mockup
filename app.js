@@ -2,6 +2,8 @@
 //Construction of battleship
 //Attacks Functions
 //Status Check for battleship
+
+//Class Constructor for Battleship
 class battleship {
   hull = 0;
   firepower = 0;
@@ -12,10 +14,11 @@ class battleship {
     this.accuracy = accuracy;
   }
 }
-
+//Creates player's ship
 const createPlayerShip = () => {
   return new battleship(20, 5, 0.7);
 };
+//Creates enemy's ship
 const createEnemyShip = () => {
   let enemies = [];
   for (let index = 0; index < 6; index++) {
@@ -27,7 +30,7 @@ const createEnemyShip = () => {
   }
   return enemies;
 };
-
+//Attacking Phase 
 const attack = (objAtk, objDef) => {
   if (objAtk.accuracy > 0.5) {
     objDef.hull = objDef.hull - objAtk.firepower;
@@ -42,7 +45,7 @@ const attack = (objAtk, objDef) => {
     counterAtk(objAtk, objDef);
   }
 };
-
+//Counter Attack Phase
 const counterAtk = (objAtk, objDef) => {
   if (objDef.accuracy > 0.5) {
     objAtk.hull = objAtk.hull - objDef.firepower;
@@ -56,7 +59,7 @@ const counterAtk = (objAtk, objDef) => {
     console.log("Counter attack missed!\n");
   }
 };
-
+//Checks Player's Health
 const checkPlayerHealth = (objPlayer, gameStatus) => {
   if (objPlayer.hull <= 0) {
     //questionDraw(objEnemy);
@@ -65,7 +68,7 @@ const checkPlayerHealth = (objPlayer, gameStatus) => {
   }
   return (gameStatus = false);
 };
-
+//Checks If The Enemy List Empty
 const checkEnemiesList = (objEnemyList, gameStatus) => {
   if (objEnemyList.length == 0) {
     console.log("You Have Destroy All Aliens.\nCongrats!");
@@ -74,21 +77,21 @@ const checkEnemiesList = (objEnemyList, gameStatus) => {
   }
   return (gameStatus = false);
 };
-
+//Checks If The Current Enemy Was Defeated
 const checkEnemyDefeated = (objEnemy, gameStatus) => {
   if (objEnemy[0].hull <= 0) {
     return checkEnemiesList(objEnemy, gameStatus);
   }
   return (gameStatus = false);
 };
-
+//Calls The Attack Function And Returns The Current Player And Enemy Status
 const enemyAlive = (objPlayer, objEnemy) => {
   if (objEnemy[0].hull >= 1) {
     attack(objPlayer, objEnemy[0]);
-    return `USS : ", ${objPlayer} \nAlien :  ${objEnemy[0]} \n`;
+    return story.innerHTML = `USS : ", ${objPlayer} \nAlien :  ${objEnemy[0]} \n`;
   }
 };
-
+//Removes The Current Enemy When Defeated
 const nextEnemy = (objEnemy) => {
   if (objEnemy[0].hull <= 0) {
     let defeated = objEnemy.shift();
@@ -96,25 +99,25 @@ const nextEnemy = (objEnemy) => {
     return `ENEMY DEFEATED : ${defeated}, \n`;
   }
 };
-
+// Checks If There Is A Draw
 const questionDraw = (objEnemy, gameStatus) => {
   if (objEnemy[0].hull <= 0) {
     console.log("Love All!");
     return changeEndGameValue(gameStatus);
   }
 };
-
+// Returns A Lose Screen When Player Is Defeated
 const playerLost = (gameStatus) => {
   console.log("You lose!");
   console.log("Game Lost function : ", changeEndGameValue(gameStatus));
   return changeEndGameValue(gameStatus);
 };
-
+// Changes The EndGame Value To True
 const changeEndGameValue = (gameState) => {
   gameState = true;
   return gameState;
 };
-
+// Return A Screen When The Player Escapes
 const runAway = (obj) => {
   return `You have manage to escape!\nhull : ${obj.hull}\nfirepower: ${obj.firepower}!\nGame Over!`;
 };
@@ -197,13 +200,12 @@ startButton.addEventListener(
 
 let battleButton = document.querySelector(".attackBtnHdn");
 let retreatButton = document.querySelector(".retreatBtnHdn");
+let story = document.querySelector(".message");
 
 battleButton.addEventListener("click", (battlePhase) => {
-  let story = document.querySelector(".message");
-
   checkEnemiesList(enemy, endGame);
 
-  story.innerHTML = enemyAlive(player, enemy);
+  enemyAlive(player, enemy);
 
   checkPlayerHealth(player, endGame);
   checkEnemyDefeated(enemy, endGame);
