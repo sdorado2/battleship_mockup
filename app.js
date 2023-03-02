@@ -25,7 +25,7 @@ const createEnemyShip = () => {
     enemies[index] = new battleship(
       Math.floor(Math.random() * 4 + 3),
       5,
-      Math.floor(Math.random() * (100 - 10) + 10) / 100
+      Math.floor(Math.random() * (3) + 4) / 10,
     );
   }
   return enemies;
@@ -33,29 +33,29 @@ const createEnemyShip = () => {
 //Attacking Phase 
 const attack = (objAtk, objDef) => {
   if (objAtk.accuracy > 0.5) {
-    objDef[0].hull = objDef[0].hull - objAtk.firepower;
+    objDef.hull = objDef.hull - objAtk.firepower;
     console.log(`Opponent has taken : ${objAtk.firepower} dmg`);
 
     let attackScreen = document.querySelector('.message')
     attackScreen.innerHTML = `Opponent has taken : ${objAtk.firepower} dmg`
 
     counterAtk(objAtk, objDef);
-    return objDef[0].hull;
+    return objDef.hull;
   } else {
     counterAtk(objAtk, objDef);
   }
 };
 //Counter Attack Phase
 const counterAtk = (objAtk, objDef) => {
-  if (objDef[0].accuracy > 0.5) {
-    objAtk.hull = objAtk.hull - objDef[0].firepower;
-    console.log(`You have received : ${objDef[0].firepower} dmg.\n`);
+  if (objDef.accuracy > 0.5) {
+    objAtk.hull = objAtk.hull - objDef.firepower;
+    console.log(`You have received : ${objDef.firepower} dmg.\n`);
 
     let cattScreen = document.querySelector('.message');
-    cattScreen.innerHTML = `You have received : ${objDef[0].firepower} dmg.\n`
+    cattScreen.innerHTML = `You have received : ${objDef.firepower} dmg.\n`
 
     return objAtk.hull;
-  } else if (objDef[0].accuracy < 0.5) {
+  } else if (objDef.accuracy < 0.5) {
     console.log("Counter attack missed!\n");
   }
 };
@@ -88,16 +88,16 @@ const checkEnemyDefeated = (objEnemy, gameStatus) => {
 const enemyAlive = (objPlayer, objEnemy) => {
   if (objEnemy[0].hull >= 1) {
     attack(objPlayer, objEnemy[0]);
-    console.log(`USS : "${objPlayer}\nAlien :${objEnemy[0]}\n`)
-    return story.innerHTML = `USS : ", ${objPlayer} \nAlien :  ${objEnemy[0]} \n`;
+    console.log("USS : ", objPlayer, "\nAlien : ", objEnemy[0], "\n")
+    return story.innerHTML = `USS : ${objPlayer} \nAlien :  ${objEnemy[0]} \n`;
   }
 };
 //Removes The Current Enemy When Defeated
 const nextEnemy = (objEnemy) => {
   if (objEnemy[0].hull <= 0) {
     let defeated = objEnemy.shift();
-    console.log (`ENEMY DEFEATED : ${defeated}, \n`);
-    return `ENEMY DEFEATED : ${defeated}, \n`;
+    console.log("DEFEATED : ", defeated, "\n");;
+    return "DEFEATED : ", defeated, "\n";
   }
 };
 // Checks If There Is A Draw
