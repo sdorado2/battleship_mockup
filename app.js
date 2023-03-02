@@ -33,29 +33,29 @@ const createEnemyShip = () => {
 //Attacking Phase 
 const attack = (objAtk, objDef) => {
   if (objAtk.accuracy > 0.5) {
-    objDef.hull = objDef.hull - objAtk.firepower;
+    objDef[0].hull = objDef[0].hull - objAtk.firepower;
     console.log(`Opponent has taken : ${objAtk.firepower} dmg`);
 
-    let attack = document.querySelector('.message')
-    attack.innerHTML = `Opponent has taken : ${objAtk.firepower} dmg`
+    let attackScreen = document.querySelector('.message')
+    attackScreen.innerHTML = `Opponent has taken : ${objAtk.firepower} dmg`
 
     counterAtk(objAtk, objDef);
-    return objDef.hull;
+    return objDef[0].hull;
   } else {
     counterAtk(objAtk, objDef);
   }
 };
 //Counter Attack Phase
 const counterAtk = (objAtk, objDef) => {
-  if (objDef.accuracy > 0.5) {
-    objAtk.hull = objAtk.hull - objDef.firepower;
-    console.log(`You have received : ${objDef.firepower} dmg.\n`);
+  if (objDef[0].accuracy > 0.5) {
+    objAtk.hull = objAtk.hull - objDef[0].firepower;
+    console.log(`You have received : ${objDef[0].firepower} dmg.\n`);
 
-    let counterAttack = document.querySelector('.message');
-    counterAttack.innerHTML = `You have received : ${objDef.firepower} dmg.\n`
+    let cattScreen = document.querySelector('.message');
+    cattScreen.innerHTML = `You have received : ${objDef[0].firepower} dmg.\n`
 
     return objAtk.hull;
-  } else if (objDef.accuracy < 0.5) {
+  } else if (objDef[0].accuracy < 0.5) {
     console.log("Counter attack missed!\n");
   }
 };
@@ -88,6 +88,7 @@ const checkEnemyDefeated = (objEnemy, gameStatus) => {
 const enemyAlive = (objPlayer, objEnemy) => {
   if (objEnemy[0].hull >= 1) {
     attack(objPlayer, objEnemy[0]);
+    console.log(`USS : "${objPlayer}\nAlien :${objEnemy[0]}\n`)
     return story.innerHTML = `USS : ", ${objPlayer} \nAlien :  ${objEnemy[0]} \n`;
   }
 };
