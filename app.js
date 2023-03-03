@@ -80,6 +80,10 @@ const checkEnemiesList = (objEnemyList, gameStatus) => {
     // console.log("Boolean Value : ", changeEndGameValue(gameStatus));
     return changeEndGameValue(gameStatus);
   }
+  let alienInfo = document.querySelector("enemyInfo");
+  alienInfo.innerHTML = `Hull :  ${enemy[0].hull} <hr><br>Firepower : ${enemy[0].firepower}<hr><br>Accuracy : ${enemy[0].accuracy}`;
+  alienStatus.append(alienInfo)
+  
   return (gameStatus = false);
 };
 //Checks If The Current Enemy Was Defeated
@@ -94,7 +98,7 @@ const enemyAlive = (objPlayer, objEnemy) => {
   if (objEnemy[0].hull >= 1) {
     attack(objPlayer, objEnemy[0]);
     console.log("USS : ", objPlayer, "\nAlien : ", objEnemy[0], "\n")
-    return story.innerHTML = `USS : ${objPlayer} \nAlien :  ${objEnemy[0]} \n`;
+    return story.innerHTML = `USS : ${objPlayer.hull} \nAlien :  ${objEnemy[0].hull} \n`;
   }
 };
 //Removes The Current Enemy When Defeated
@@ -104,7 +108,7 @@ const nextEnemy = (objEnemy) => {
     console.log("DEFEATED : ", defeated, "\n");;
     return story.innerHTML = `DEFEATED : ${defeated}\n`;
   }
-  return story.innerHTML = `Enemy still has ${objEnemy[0].hull}. Continue with the attack?`
+  return story.innerHTML = `Enemy still has ${objEnemy[0].hull} HP. \nContinue with the attack?`
 };
 // Checks If There Is A Draw
 const questionDraw = (objEnemy, gameStatus) => {
