@@ -59,6 +59,7 @@ const counterAtk = (objAtk, objDef) => {
     return objAtk.hull;
   } else if (objDef.accuracy < 0.5) {
     console.log("Counter attack missed!\n");
+    story.innerHTML = "Counter attack missed!\n";
     return 
   }
 };
@@ -75,6 +76,7 @@ const checkPlayerHealth = (objPlayer, gameStatus) => {
 const checkEnemiesList = (objEnemyList, gameStatus) => {
   if (objEnemyList.length == 0) {
     console.log("You Have Destroy All Aliens.\nCongrats!");
+    story.innerHTML = "You Have Destroy All Aliens.\nCongrats!"
     // console.log("Boolean Value : ", changeEndGameValue(gameStatus));
     return changeEndGameValue(gameStatus);
   }
@@ -100,8 +102,9 @@ const nextEnemy = (objEnemy) => {
   if (objEnemy[0].hull <= 0) {
     let defeated = objEnemy.shift();
     console.log("DEFEATED : ", defeated, "\n");;
-    return "DEFEATED : ", defeated, "\n";
+    return story.innerHTML = `DEFEATED : ${defeated}\n`;
   }
+  return story.innerHTML = `Enemy still has ${objEnemy[0].hull}. Continue with the attack?`
 };
 // Checks If There Is A Draw
 const questionDraw = (objEnemy, gameStatus) => {
@@ -214,7 +217,7 @@ battleButton.addEventListener("click", (battlePhase) => {
   checkPlayerHealth(player, endGame);
   checkEnemyDefeated(enemy, endGame);
 
-  story.innerHTML = nextEnemy(enemy);
+  nextEnemy(enemy);
 });
 
 retreatButton.addEventListener("click", (retreatOption) => {
