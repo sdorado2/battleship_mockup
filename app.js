@@ -32,11 +32,12 @@ const createEnemyShip = () => {
 };
 //Attacking Phase 
 const attack = (objAtk, objDef) => {
-  if (objAtk.accuracy > 0.5) {
+  let attackScreen = document.querySelector('.message')
+
+  if (objAtk.accuracy > 0.5) {  // Probably change the player's accuracy?
     objDef.hull = objDef.hull - objAtk.firepower;
     console.log(`Opponent has taken : ${objAtk.firepower} dmg`);
 
-    let attackScreen = document.querySelector('.message')
     attackScreen.innerHTML = `Opponent has taken : ${objAtk.firepower} dmg`
 
     counterAtk(objAtk, objDef);
@@ -47,16 +48,18 @@ const attack = (objAtk, objDef) => {
 };
 //Counter Attack Phase
 const counterAtk = (objAtk, objDef) => {
+  let cattScreen = document.querySelector('.message');
+
   if (objDef.accuracy > 0.5) {
     objAtk.hull = objAtk.hull - objDef.firepower;
     console.log(`You have received : ${objDef.firepower} dmg.\n`);
-
-    let cattScreen = document.querySelector('.message');
+    
     cattScreen.innerHTML = `You have received : ${objDef.firepower} dmg.\n`
 
     return objAtk.hull;
   } else if (objDef.accuracy < 0.5) {
     console.log("Counter attack missed!\n");
+    return 
   }
 };
 //Checks Player's Health
